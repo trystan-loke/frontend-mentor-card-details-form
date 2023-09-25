@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link href='https://fonts.googleapis.com/css?family=Space Grotesk' rel='stylesheet'>
+  <link href='styles.css' rel='stylesheet'>
+  <title>Frontend Mentor | Interactive card details form</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+  </style>
+  <script src="index.js"></script>
+</head>
+<body>
+  <img src="images/bg-main-desktop.png" alt="desktop background" class="desktop-background">
+  <div class="card">
+    <div class="card-front">
+      <img src="images/card-logo.svg" alt="card logo" class="sample-card-logo">
+      <p id="sampleCardNo" class="sample-card-no">0000 0000 0000 0000</p>
+      <p id="sampleCardName" class="sample-card-name">JANE APPLESEED</p>
+      <p id="sampleCardExp" class="sample-card-exp">00/00</p>
+    </div>
+    <div class="card-back">
+      <p class="sample-card-cvc">000</p>
+    </div>
+  </div>
+  <main>
+    <form id="cardForm" name="card-form" class="card-form" onsubmit="return validateForm()" novalidate>
+      <fieldset>
+        <legend>Cardholder Name</legend>
+        <input name="name" type="text" maxlength="30" placeholder="e.g. Jane Appleseed" oninput="populateCardName(this)" required>
+        <div id="nameError" class="error"></div>
+      </fieldset>
+      <fieldset>
+        <legend>Card Number</legend>
+        <input 
+          id="number" name="number" type="text" 
+          maxlength="19" placeholder="e.g. 1234 5678 9123 0000" 
+          pattern="^(\d{4}\s){3}\d{4}$"
+          required onkeypress="formatCardNo(event)" oninput="populateCardNo(this)">
+        <div id="numberError" class="error"></div>
+      </fieldset>
+      <fieldset class="exp-date-field">
+        <legend>Exp. Date (MM/YY)</legend>
+        <input id="expMonth" name="exp-date-month" type="number" min="1" max="99" placeholder="MM" required oninput="formatMonthYear(this)">
+        <input id="expYear" name="exp-date-year" type="number" min="1" max="99" placeholder="YY" required oninput="formatMonthYear(this)">
+        <div id="monthError" class="error date-error"></div>
+        <div id="yearError" class="error date-error"></div>
+      </fieldset>
+      <fieldset class="cvc-field">
+        <legend>CVC</legend>
+        <input name="cvc" type="password" minlength="3" maxlength="3" placeholder="e.g. 123" required>
+        <div id="cvcError" class="error"></div>
+      </fieldset>
+      <input type="submit" value="Confirm">
+    </form>
+    <section id="completeSection" class="complete-section">
+      <img src="images/icon-complete.svg" alt="complete icon" class="icon-complete">
+      <p class="completion-title">Thank You!</p>
+      <p class="completion-text">We've added your card details</p>
+      <input type="button" value="Continue" onclick="switchToForm()">
+    </section>
+  </main>
+</body>
+</html>
